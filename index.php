@@ -22,6 +22,9 @@
 
             // Get country code from ID into variable
             $countryCode = substr($id, 0, 3);
+
+            // Print to check valid country codes
+            echo "Valid country code: " . $countryCode . "<br>";
         }
         else {
             echo $i . ": " . "Failure\n" . "<br>";
@@ -29,17 +32,19 @@
     }
     echo "<br>";
 
-
-
     // Calculate the total sum of prices from a chosen country
-    function calculateTotalSum($countryCode) {
-        if($id){
+    function calculateCountrysTotalSum($countryCode) {
+        if($countryCode === "#FI"){
+            echo "This is FI";
             // get price
             // loop price and get sum
             // print data to csv file - Success, SE, total sum
         }
+        else {
+            echo "You have entered an invalid country code. Please try again.";
+        }
     }
 
     // Call the function
-    calculateTotalSum("#SE");
+    calculateCountrysTotalSum("#KK");
 ?>
