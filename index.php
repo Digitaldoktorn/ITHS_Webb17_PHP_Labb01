@@ -8,9 +8,6 @@
     echo "</pre>";
     echo "<br>";
 
-    // Testar bara array values
-    // print_r(array_values($csv_data));
-
     // Loop through the array to get values etc
     for($i=0; $i<sizeof($csv_data); $i++) {
         // Find IDs with 9 characters
@@ -23,7 +20,7 @@
             // Get country code from ID into variable
             $countryCode = substr($id, 0, 3);
 
-            // Get quantity into varialbe
+            // Get quantity into variable
             $quantity = $csv_data[$i][1];
 
             // Get price into varialbe
@@ -35,25 +32,37 @@
             echo "Price: " . $price . "<br>";
         }
         else {
-            echo $i . ": " . "Failure\n" . "<br>";
+            // echo $i . ": " . "Not a valid country code. \n" . "<br>";
         }
-
+        if($countryCode === "#FI"){
+            echo "Finland q:" . $quantity;
+        }
+        $arrayCountryCodes[] = $countryCode;
+        foreach($arrayCountryCodes as $cCode){
+            $listCountryCodes = $cCode;
+        } 
+        
     }
     echo "<br>";
+    echo $listCountryCodes;
+   
+
+    // Present valid country codes to the user
+    // echo "Valid country codes are: #SE, #FI, #US, #DE, #ES, #RU, #NO, #IT, #GR, #FR, #PL<br>";
+
+    $status = 0;
 
     // Calculate the total sum of prices from a chosen country
     function calculateCountrysTotalSum($countryCode) {
         if($countryCode === "#FI"){
-            echo "This is FI";
-            // get price
-            // loop price and get sum
-            // print data to csv file - Success, SE, total sum
+            
         }
+
         else {
-            echo "You have entered an invalid country code. Please try again.";
+            echo "Failure! You have entered an invalid country code. Please try again.";
         }
     }
 
     // Call the function
-    calculateCountrysTotalSum("#KK");
+    calculateCountrysTotalSum("#FI");
 ?>
