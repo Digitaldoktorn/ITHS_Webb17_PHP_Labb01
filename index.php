@@ -23,12 +23,21 @@
             // Get country code from ID into variable
             $countryCode = substr($id, 0, 3);
 
-            // Print to check valid country codes
+            // Get quantity into varialbe
+            $quantity = $csv_data[$i][1];
+
+            // Get price into varialbe
+            $price= $csv_data[$i][2];
+
+            // Print to check the variables
             echo "Valid country code: " . $countryCode . "<br>";
+            echo "Quantity: " . $quantity . "<br>";
+            echo "Price: " . $price . "<br>";
         }
         else {
             echo $i . ": " . "Failure\n" . "<br>";
         }
+
     }
     echo "<br>";
 
