@@ -7,7 +7,7 @@
     echo "<h1>Labb 1 - Anders Eriksson</h1>";
 
     // Calculate the total sum of prices from a chosen country
-    function calculateCountrysTotalSum($countryCode) {
+    function calculateCountrysTotalSum($userCountryCode) {
 
         $price = 0;
         $quantity = 0;
@@ -44,10 +44,9 @@
                     echo "Valid country code: " . $countryCode . "<br>";
                     echo "Quantity: " . $quantity . "<br>";
                     echo "Price: " . $price . "<br>";
-                    if($countryCode === "#FI"){
-                        // $totalSumFi += $price * $quantity;
-                        // return $totalSumFi;
-                        echo " Finland</br>";
+                    if($countryCode === $userCountryCode){
+                        $totalSumFi += $price * $quantity;
+                        echo $totalSumFi;
                     }
                     else {
                         echo " error</br>";
@@ -60,5 +59,5 @@
     // echo "Total sum Finland: " . $totalSumFi . ":-<br>";
 
     // Call the function
-    calculateCountrysTotalSum("#SE");
+    calculateCountrysTotalSum("#EN");
 ?>
