@@ -14,7 +14,7 @@
         $status = 0;
         $id;
         $countryCode;
-        $totalSumFi = 0;
+        $totalSum = 0;
 
         // Get data from csv file into array
         $csv_data = array_map('str_getcsv', file("international-orders.csv"));
@@ -37,27 +37,41 @@
                     // Get quantity into variable
                     $quantity = $csv_data[$i][1];
     
-                    // Get price into varialbe
+                    // Get price into variable
                     $price= $csv_data[$i][2];
+
+                    // set status
+                    $status = 1;
                     
                     // Print to check the variables
-                    echo "Valid country code: " . $countryCode . "<br>";
-                    echo "Quantity: " . $quantity . "<br>";
-                    echo "Price: " . $price . "<br>";
+                    // echo "Valid country code: " . $countryCode . "<br>";
+                    // echo "Quantity: " . $quantity . "<br>";
+                    // echo "Price: " . $price . "<br>";
                     if($countryCode === $userCountryCode){
-                        $totalSumFi += $price * $quantity;
-                        echo $totalSumFi;
+                        $totalSum += $price * $quantity;
+                        $status = 1;
+                        
                     }
                     else {
-                        echo " error</br>";
-                    } 
-                    echo "<br>------</br>";           
+                        $status = 0;
+                    }
+
                 }
+                else {
+                    $status = 0;
+                }
+                
             }
+            if($status == 1){
+                echo $status . ", " . $userCountryCode . ", " . $totalSum;
+            }
+            elseif($status == 0){
+                echo "error";
+            }
+            
     }
 
-    // echo "Total sum Finland: " . $totalSumFi . ":-<br>";
 
     // Call the function
-    calculateCountrysTotalSum("#EN");
+    calculateCountrysTotalSum("#FI");
 ?>
