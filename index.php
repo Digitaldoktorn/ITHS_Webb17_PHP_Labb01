@@ -1,5 +1,5 @@
 <?php
-    // Se alla fel under development.
+    // Check errors during development.
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -11,10 +11,11 @@
 
         $price = 0;
         $quantity = 0;
-        $status = 0;
+        $status;
         $id;
         $countryCode;
         $totalSum = 0;
+        $found = FALSE;
 
         // Get data from csv file into array
         $csv_data = array_map('str_getcsv', file("international-orders.csv"));
@@ -41,37 +42,43 @@
                     $price= $csv_data[$i][2];
 
                     // set status
-                    $status = 1;
+                    $status = "Success";
                     
                     // Print to check the variables
                     // echo "Valid country code: " . $countryCode . "<br>";
                     // echo "Quantity: " . $quantity . "<br>";
                     // echo "Price: " . $price . "<br>";
+
+                    // Compare users country code with existing country codes, calculate total sum
                     if($countryCode === $userCountryCode){
                         $totalSum += $price * $quantity;
-                        $status = 1;
+                        $found = TRUE;
                         
                     }
                     else {
-                        $status = 0;
+                        
                     }
-
+                }
+                // set statuses
+                if($found){
+                    $status = "Success";
                 }
                 else {
-                    $status = 0;
+                    $status = "Failure";    
                 }
                 
             }
-            if($status == 1){
+            // Print data to csv files
+            if($status === "Success"){
                 echo $status . ", " . $userCountryCode . ", " . $totalSum;
+                // $fileHandle = fopen($userCountryCode . "-" . date("Ymd-his") . ".csv", "a");
+                // fwrite($fileHandle, $status . ", " . $userCountryCode . ", " . $totalSum );
             }
-            elseif($status == 0){
-                echo "error";
-            }
-            
+            if($status === "Failure"){
+                echo "Error! You have entered an invalid country code. Valid country codes are: <br>" .  "#SE, #FI, #US, #DE, #ES, #RU, #NO, #IT, #GR, #FR, #PL<br>" . "Please try again.";
+            }     
     }
 
-
     // Call the function
-    calculateCountrysTotalSum("#FI");
+    calculateCountrysTotalSum("#SE");
 ?>
