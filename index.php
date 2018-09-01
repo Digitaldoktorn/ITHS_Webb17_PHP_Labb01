@@ -33,7 +33,7 @@
                     $id = $csv_data[$i][0];
     
                     // Get country code from ID into variable
-                    $countryCode = substr($id, 0, 3);
+                    $countryCode = substr($id, 0, 3);//ändra 3 till 2 - lägg värdet i en variabel, se ovan
     
                     // Get quantity into variable
                     $quantity = $csv_data[$i][1];
@@ -41,22 +41,15 @@
                     // Get price into variable
                     $price= $csv_data[$i][2];
 
-                    // set status
-                    $status = "Success";
-                    
                     // Print to check the variables
                     // echo "Valid country code: " . $countryCode . "<br>";
                     // echo "Quantity: " . $quantity . "<br>";
                     // echo "Price: " . $price . "<br>";
 
-                    // Compare users country code with existing country codes, calculate total sum
-                    if($countryCode === $userCountryCode){
+                    // Compare input country code with existing country codes, calculate total sum
+                    if($countryCode === $userCountryCode){ 
                         $totalSum += $price * $quantity;
                         $found = TRUE;
-                        
-                    }
-                    else {
-                        
                     }
                 }
                 // set statuses
@@ -68,17 +61,20 @@
                 }
                 
             }
-            // Print data to csv files
+            
             if($status === "Success"){
-                echo $status . ", " . $userCountryCode . ", " . $totalSum;
-                // $fileHandle = fopen($userCountryCode . "-" . date("Ymd-his") . ".csv", "a");
-                // fwrite($fileHandle, $status . ", " . $userCountryCode . ", " . $totalSum );
+                // Print to check
+                // echo $status . ", " . $userCountryCode . ", " . $totalSum;
+                
+                // Print data to csv files
+                $fileHandle = fopen($userCountryCode . "-" . date("Ymd-his") . ".csv", "a");
+                fwrite($fileHandle, $status . ", " . $userCountryCode . ", " . $totalSum );
             }
             if($status === "Failure"){
                 echo "Error! You have entered an invalid country code. Valid country codes are: <br>" .  "#SE, #FI, #US, #DE, #ES, #RU, #NO, #IT, #GR, #FR, #PL<br>" . "Please try again.";
-            }     
+            }      
     }
 
     // Call the function
-    calculateCountrysTotalSum("#SE");
+    calculateCountrysTotalSum("#ES");
 ?>
